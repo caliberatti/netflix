@@ -1,0 +1,255 @@
+/* Styles inspired by Netflix */
+* {
+    /* Inclui o padding e bordo no cálculo de largura/altura para evitar overflow inesperado */
+    box-sizing: border-box;
+}
+
+:root {
+    /* Variáveis globais de cores para modo escuro (padrão) */
+    --bg: #141414;
+    --bg-panel: rgba(0, 0, 0, 0.95);
+    --text: #979797;
+    --subtext: #b3b3b3;
+    --highlight: #ffffff;
+}
+
+.light {
+    /* Variáveis para modo claro */
+    --bg: #f5f5f5;
+    --bg-panel: rgba(255, 255, 255, 0.95);
+    --text: #181818;
+    --subtext: #606060;
+    --highlight: #181818;
+}
+
+body {
+    /* O body usa variáveis que mudam de acordo com a classe no HTML */
+    /* Remove margens padrão do browser */
+    margin: 0;
+    /* Define fonte padrão legível */
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    /* Fundo com gradiente radial para profundidade visual */
+    background: radial-gradient(circle at 20% 0%, #2b2b2b 0%, #141414 45%, #0f0f0f 100%);
+    /* Cor do texto usando variável root */
+    color: var(--text);
+    /* Altura mínima para ocupar viewport completo */
+    min-height: 100vh;
+    /* Centraliza o conteúdo principal vertical e horizontalmente */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+main {
+    /* Limita largura máxima e permite encaixar em telas menores */
+    width: min(100%, 960px);
+    /* Espaçamento interno */
+    padding: 2.5rem;
+    /* Fundo do painel com leve transparência */
+    background: var(--bg-panel);
+    /* Cantos arredondados */
+    border-radius: 12px;
+    /* Sombra externa para destaque */
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.5);
+    /* Alinha texto ao centro */
+    text-align: center;
+}
+
+h1 {
+    /* Espaçamento abaixo do título */
+    margin: 0 0 1.75rem;
+    /* Tamanho de fonte responsivo */
+    font-size: clamp(1.8rem, 2.7vw, 3rem);
+}
+
+.theme-switcher {
+    margin-bottom: 1rem;
+}
+
+#theme-toggle {
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--subtext);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--text);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.08rem;
+    line-height: 1;
+    transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+#theme-toggle:hover,
+#theme-toggle:focus-visible {
+    transform: scale(1.04);
+}
+
+#theme-toggle::before {
+    content: '☀'; /* ícone de sol outline */
+    font-size: 1.15rem;
+    color: var(--subtext);
+    text-shadow: 0 0 0.05rem rgba(0, 0, 0, 0.2);
+}
+
+#theme-toggle:hover::before,
+#theme-toggle:focus-visible::before {
+    color: var(--highlight);
+}
+
+.light #theme-toggle::before {
+    content: '☾'; /* ícone de lua outline no modo claro */
+    color: var(--text);
+}
+
+.light .profile {
+    background: #e8e8e8; /* fundo cinza claro no modo claro */
+    border-color: #c7c7c7;
+}
+
+.profiles {
+    /* Removendo marcadores dos itens da lista */
+    list-style: none;
+    /* Eliminando o recuo padrão das listas */
+    padding: 0;
+    /* Eliminando espaçamento externo padrão */
+    margin: 0;
+    /* Exibe perfis em grid responsivo */
+    display: grid;
+    /* Define colunas flexíveis com largura mínima de 150px */
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    /* Espaço entre itens */
+    gap: 1rem;
+    /* Centraliza os itens dentro da célula */
+    justify-items: center;
+}
+
+.profile {
+    /* Occupy full available width in grid cell */
+    width: 100%;
+    /* Limita largura máxima para evitar esticar demais */
+    max-width: 180px;
+    /* Fundo do cartão de perfil */
+    background: #221f22;
+    /* Borda inicial transparente (aqui 1px conforme pedido) */
+    border: 1px solid transparent;
+    /* Cantos arredondados */
+    border-radius: 10px;
+    /* Espaçamento interno do cartão */
+    padding: 1rem;
+    /* Cursor pointer para indicar clicável */
+    cursor: pointer;
+    /* Transição suave em transform e borda e sombra */
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.profile:hover,
+.profile:focus-within {
+    /* Eleva visualmente o cartão */
+    transform: translateY(-3px);
+    /* Borda muda para cor de destaque */
+    border-color: var(--highlight);
+    /* Adiciona sombra de foco */
+    box-shadow: 0 8px 32px rgba(80, 80, 80, 0.35);
+}
+
+.profile img {
+    /* Define tamanho fixo para as imagens do perfil */
+    width: 120px;
+    height: 120px;
+    /* Corta e ajusta proporção da imagem */
+    object-fit: cover;
+    /* Cantos arredondados na imagem */
+    border-radius: 8px;
+    /* Borda escura para contraste */
+    border: 2px solid #333;
+}
+
+.profile p {
+    /* Espaço acima do texto para separação */
+    margin: 0.75rem 0 0;
+    /* Cor de subtítulo usando variável root */
+    color: var(--subtext);
+    /* Peso da fonte mais forte */
+    font-weight: 700;
+}
+
+.profile a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.profile a:hover,
+.profile a:focus,
+.profile a:active {
+    text-decoration: none;
+}
+
+.light .profile p {
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+
+    /* tablets e celulares grandes */
+    main {
+        padding: 2rem;
+        /* menos padding para encaixar bem */
+    }
+
+    .profiles {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 0.75rem;
+    }
+
+    .profile {
+        max-width: 160px;
+    }
+}
+
+@media (max-width: 520px) {
+
+    /* celulares pequenos */
+    main {
+        padding: 1.25rem;
+    }
+
+    .profiles {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 0.6rem;
+    }
+
+    .profile {
+        max-width: 140px;
+        padding: 0.8rem;
+    }
+
+    .profile img {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+@media (min-width: 1200px) {
+
+    /* telas grandes/desktop maiores */
+    main {
+        padding: 3rem;
+    }
+
+    .profiles {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 1.2rem;
+    }
+
+    .profile {
+        max-width: 200px;
+    }
+
+    .profile img {
+        width: 130px;
+        height: 130px;
+    }
+}
